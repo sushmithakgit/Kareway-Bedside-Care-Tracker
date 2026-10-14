@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────
+   Kareway Health — design tokens (warm clinical, oklch)
+   Aesthetic: Hinge Health × Oscar. Humane, confident, calm.
+   ────────────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --kw-bg:           oklch(0.985 0.005 80);     /* warm bone */
+  --kw-bg-deep:      oklch(0.975 0.008 80);
+  --kw-surface:      #ffffff;
+  --kw-surface-2:    oklch(0.97 0.005 80);
+
+  /* Ink */
+  --kw-ink:          oklch(0.20 0.01 60);       /* warm near-black */
+  --kw-ink-soft:     oklch(0.32 0.01 60);
+  --kw-muted:        oklch(0.55 0.01 60);
+  --kw-subtle:       oklch(0.72 0.005 60);
+
+  /* Lines */
+  --kw-line:         oklch(0.92 0.005 70);
+  --kw-line-strong:  oklch(0.85 0.008 70);
+
+  /* Form / toggle */
+  --kw-toggle-off:   oklch(0.88 0.005 80);
+
+  /* Brand — Kareway green, evolved */
+  --kw-brand:        oklch(0.55 0.08 175);
+  --kw-brand-deep:   oklch(0.45 0.09 175);
+  --kw-brand-tint:   oklch(0.94 0.04 175);
+  --kw-brand-ink:    oklch(0.30 0.06 175);
+
+  /* Emergency — clinical red, not panic-red */
+  --kw-er:           oklch(0.58 0.18 25);
+  --kw-er-deep:      oklch(0.50 0.19 25);
+  --kw-er-tint:      oklch(0.93 0.05 25);
+
+  /* Category tints (desaturated, oklch matched) */
+  --kw-medical:      oklch(0.58 0.10 25);
+  --kw-medical-tint: oklch(0.95 0.022 25);
+  --kw-comfort:      oklch(0.55 0.07 230);
+  --kw-comfort-tint: oklch(0.96 0.018 230);
+  --kw-movement:     oklch(0.55 0.07 285);
+  --kw-movement-tint:oklch(0.96 0.018 285);
+  --kw-social:       oklch(0.62 0.08 80);
+  --kw-social-tint:  oklch(0.96 0.022 80);
+
+  /* Shadows — soft, warm */
+  --kw-shadow-xs:    0 1px 0 0 oklch(0.85 0.005 70 / 0.5);
+  --kw-shadow-sm:    0 1px 2px oklch(0.20 0.01 60 / 0.04), 0 0 0 1px oklch(0.92 0.005 70 / 0.6);
+  --kw-shadow:       0 4px 16px -4px oklch(0.20 0.01 60 / 0.08), 0 1px 0 0 oklch(0.92 0.005 70 / 0.6);
+  --kw-shadow-lg:    0 18px 40px -12px oklch(0.20 0.01 60 / 0.14);
+  --kw-shadow-xl:    0 32px 64px -20px oklch(0.20 0.01 60 / 0.22);
+  --kw-shadow-er:    0 16px 32px -8px oklch(0.58 0.18 25 / 0.35);
+
+  /* Type scale */
+  --kw-font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --kw-font-body:    'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
+  --kw-font-tamil:   'Noto Sans Tamil', 'Inter', sans-serif;
+
+  /* Radii */
+  --kw-r-sm: 8px;
+  --kw-r:    14px;
+  --kw-r-lg: 20px;
+  --kw-r-xl: 28px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   Night Mode — full dark-theme token override.
+   All "tint" backgrounds are dark; all "ink/deep" text is light.
+   ────────────────────────────────────────────────────────── */
+.night-mode {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --kw-bg:           #0d1117;
+  --kw-bg-deep:      #090d12;
+  --kw-surface:      #161b22;
+  --kw-surface-2:    #1c2230;
+
+  /* Ink — near-white hierarchy */
+  --kw-ink:          #f0f6fc;
+  --kw-ink-soft:     #c9d1d9;
+  --kw-muted:        #8b949e;
+  --kw-subtle:       #484f58;
+
+  /* Lines */
+  --kw-line:         #21262d;
+  --kw-line-strong:  #30363d;
+
+  /* Form toggle */
+  --kw-toggle-off:   #2d333b;
+
+  /* Brand — brighter teal + LIGHT ink for dark tint bg */
+  --kw-brand:        oklch(0.62 0.12 175);
+  --kw-brand-deep:   oklch(0.52 0.14 175);
+  --kw-brand-tint:   #0d2820;
+  --kw-brand-ink:    oklch(0.82 0.10 175);   /* light teal → readable on #0d2820 */
+
+  /* Emergency — bright red + LIGHT text for dark red bg */
+  --kw-er:           oklch(0.62 0.20 25);
+  --kw-er-deep:      oklch(0.80 0.16 25);    /* light salmon → readable on #2d1014 */
+  --kw-er-tint:      #2d1014;
+
+  /* Category colours — brighter for dark bgs */
+  --kw-medical:      oklch(0.65 0.12 25);
+  --kw-medical-tint: #2d1212;
+  --kw-comfort:      oklch(0.65 0.10 230);
+  --kw-comfort-tint: #0d1a2e;
+  --kw-movement:     oklch(0.65 0.10 285);
+  --kw-movement-tint:#1a1230;
+  --kw-social:       oklch(0.72 0.10 80);
+  --kw-social-tint:  #2a1e04;
+
+  /* Shadows — stronger for dark theme */
+  --kw-shadow-xs:    0 1px 0 0 rgba(0,0,0,0.6);
+  --kw-shadow-sm:    0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.55);
+  --kw-shadow:       0 4px 16px -4px rgba(0,0,0,0.5), 0 1px 0 0 rgba(255,255,255,0.025);
+  --kw-shadow-lg:    0 18px 40px -12px rgba(0,0,0,0.6);
+  --kw-shadow-xl:    0 32px 64px -20px rgba(0,0,0,0.7);
+  --kw-shadow-er:    0 16px 32px -8px oklch(0.62 0.20 25 / 0.45);
+}
+
+/* ────────────── Base ────────────── */
+@layer base {
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { background: var(--kw-bg); }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--kw-font-body);
+    color: var(--kw-ink);
+    background: var(--kw-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--kw-line-strong);
+    border-radius: 999px;
+    border: 3px solid var(--kw-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--kw-muted); }
+
+  /* Focus rings */
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--kw-brand-tint), 0 0 0 5px var(--kw-brand);
+  }
+
+  ::selection { background: var(--kw-brand-tint); color: var(--kw-brand-ink); }
+}
+
+/* ────────────── Typography ────────────── */
+.font-display {
+  font-family: var(--kw-font-display);
+  letter-spacing: -0.022em;
+  font-feature-settings: "ss01";
+}
+
+.font-tamil {
+  font-family: var(--kw-font-tamil);
+}
+
+.text-balance { text-wrap: balance; }
+
+/* ────────────── Animations ────────────── */
+@keyframes kw-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes kw-pop  { from { opacity: 0; transform: translateY(8px) scale(.985) } to { opacity: 1; transform: translateY(0) scale(1) } }
+@keyframes kw-rise { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes kw-slide-right { from { opacity: 0; transform: translateX(16px) } to { opacity: 1; transform: translateX(0) } }
+@keyframes kw-pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--ring-color, oklch(0.55 0.08 175 / 0.35)) }
+  70% { box-shadow: 0 0 0 20px transparent }
+  100% { box-shadow: 0 0 0 0 transparent }
+}
+@keyframes kw-scan-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--ring-color, oklch(0.55 0.08 175 / 0.45)), 0 12px 32px -8px var(--ring-color, oklch(0.55 0.08 175 / 0.35)) }
+  50% { box-shadow: 0 0 0 14px transparent, 0 12px 32px -8px var(--ring-color, oklch(0.55 0.08 175 / 0.5)) }
+}
+@keyframes kw-wave {
+  0%, 100% { transform: scaleY(0.35) }
+  50% { transform: scaleY(1) }
+}
+@keyframes kw-spin { to { transform: rotate(360deg) } }
+@keyframes kw-pulse-soft {
+  0%, 100% { opacity: 0.85 }
+  50% { opacity: 1 }
+}
+
+.animate-fade { animation: kw-fade .2s ease both; }
+.animate-pop { animation: kw-pop .25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-rise { animation: kw-rise .35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-right { animation: kw-slide-right .25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-pulse-ring { animation: kw-pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-scan-glow { animation: kw-scan-glow 1.6s ease-in-out infinite; }
+.animate-spin-slow { animation: kw-spin 1.4s linear infinite; }
+.animate-pulse-soft { animation: kw-pulse-soft 1.4s ease-in-out infinite; }
+
+/* Waveform bars */
+.kw-wave-bar {
+  display: inline-block;
+  width: 3px;
+  border-radius: 1.5px;
+  background: currentColor;
+  transform-origin: center;
+  animation: kw-wave 1s ease-in-out infinite;
+}
+.kw-wave-bar:nth-child(1) { animation-delay: -0.05s; height: 12px; }
+.kw-wave-bar:nth-child(2) { animation-delay: -0.20s; height: 18px; }
+.kw-wave-bar:nth-child(3) { animation-delay: -0.35s; height: 24px; }
+.kw-wave-bar:nth-child(4) { animation-delay: -0.50s; height: 16px; }
+.kw-wave-bar:nth-child(5) { animation-delay: -0.65s; height: 22px; }
+.kw-wave-bar:nth-child(6) { animation-delay: -0.30s; height: 14px; }
+.kw-wave-bar:nth-child(7) { animation-delay: -0.10s; height: 18px; }
+
+/* Pause waveform when not active */
+.kw-wave-paused .kw-wave-bar { animation-play-state: paused; transform: scaleY(0.25); }
+
+/* ────────────── Glass surface ────────────── */
+.kw-glass {
+  background: oklch(1 0 0 / 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+.night-mode .kw-glass {
+  background: oklch(0.11 0.01 250 / 0.90);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+}
+
+/* Night mode grain — subtle cool nebula instead of warm blobs */
+.night-mode .kw-grain {
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.62 0.12 175 / 0.06), transparent 40%),
+    radial-gradient(circle at 80% 70%, oklch(0.65 0.10 285 / 0.04), transparent 45%);
+}
+
+/* Smooth theme switch — enabled only during the transition window */
+.theme-transitioning,
+.theme-transitioning * {
+  transition:
+    background-color 0.35s ease,
+    border-color     0.30s ease,
+    color            0.25s ease,
+    box-shadow       0.30s ease !important;
+}
+/* Don't override animation-based transitions */
+.theme-transitioning .animate-scan-glow,
+.theme-transitioning .animate-pulse-ring,
+.theme-transitioning .kw-wave-bar {
+  transition: none !important;
+}
+
+/* Night mode scrollbar */
+.night-mode ::-webkit-scrollbar-thumb { background: #30363d; }
+.night-mode ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+
+/* Catch any remaining hardcoded Tailwind white/light surfaces in night mode */
+.night-mode .bg-white,
+.night-mode .bg-slate-50\/60,
+.night-mode .bg-slate-50 { background-color: var(--kw-surface) !important; }
+
+.night-mode .text-slate-900,
+.night-mode .text-slate-800 { color: var(--kw-ink) !important; }
+
+.night-mode .text-slate-700,
+.night-mode .text-slate-600 { color: var(--kw-ink-soft) !important; }
+
+.night-mode .text-slate-500,
+.night-mode .text-slate-400 { color: var(--kw-muted) !important; }
+
+.night-mode .border-slate-100,
+.night-mode .border-slate-200,
+.night-mode .divide-slate-100 { border-color: var(--kw-line) !important; }
+
+.night-mode .bg-slate-100,
+.night-mode .bg-slate-100\/60 { background-color: var(--kw-bg-deep) !important; }
+
+/* Force input/select backgrounds in night mode */
+.night-mode input,
+.night-mode select,
+.night-mode textarea {
+  background-color: var(--kw-bg-deep);
+  color: var(--kw-ink);
+  border-color: var(--kw-line);
+  color-scheme: dark;
+}
+
+/* ────────────── Action card ────────────── */
+.kw-card {
+  position: relative;
+  isolation: isolate;
+  transition: transform .18s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow .18s ease,
+              border-color .18s ease,
+              background-color .15s ease;
+}
+.kw-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--kw-card-tint, transparent);
+  opacity: 0;
+  transition: opacity .2s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.kw-card:hover { transform: translateY(-2px); }
+.kw-card:hover::after { opacity: 1; }
+.kw-card:active { transform: translateY(0) scale(.985); }
+
+/* ────────────── Form primitives ────────────── */
+@layer components {
+  .kw-input {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--kw-line);
+    background: var(--kw-surface);
+    color: var(--kw-ink);
+    border-radius: var(--kw-r);
+    font: inherit;
+    font-size: 0.9375rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .kw-input:focus {
+    outline: none;
+    border-color: var(--kw-brand);
+    box-shadow: 0 0 0 3px var(--kw-brand-tint);
+  }
+  .kw-input::placeholder { color: var(--kw-subtle); }
+}
+
+/* ────────────── Hide scrollbar utility ────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* ────────────── Misc helpers ────────────── */
+.kw-grain {
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.55 0.08 175 / 0.04), transparent 35%),
+    radial-gradient(circle at 80% 70%, oklch(0.62 0.08 80 / 0.03), transparent 40%);
+}
+
+/* React grid placeholders */
+.react-grid-layout { position: relative; transition: height 200ms ease; }
+.react-grid-item { transition: all 200ms ease; }
+.react-grid-item.react-grid-placeholder {
+  background: var(--kw-brand);
+  opacity: 0.18;
+  border-radius: var(--kw-r-lg);
+}
