@@ -1,0 +1,217 @@
+Kareway Health — Patient AAC App
+================================
+Setup & Usage Instructions
+
+Read this file first. For an explanation of what every feature does,
+see FEATURES.txt in the same folder.
+
+
+─────────────────────────────────────────────────────────────────────
+STEP 1 — UNZIP
+─────────────────────────────────────────────────────────────────────
+Windows:
+    Right-click  patient-aac-app.zip  →  Extract All...
+    Choose any folder you like (Desktop, Documents, etc.) and click Extract.
+
+macOS:
+    Double-click  patient-aac-app.zip
+    macOS extracts it to a folder next to the zip automatically.
+
+Linux:
+    unzip patient-aac-app.zip
+
+You should now have a folder called  patient-aac-app  containing:
+    start.bat        start.sh        launch.js
+    SETUP.txt        FEATURES.txt
+    project/         (the app source code)
+
+
+─────────────────────────────────────────────────────────────────────
+STEP 2 — INSTALL NODE.JS  (one time only)
+─────────────────────────────────────────────────────────────────────
+The app needs Node.js v20 or newer.
+
+Check whether you already have it:
+    Open Terminal (Mac/Linux) or Command Prompt (Windows) and type:
+        node -v
+    If it prints v20.x.x or higher, skip to Step 3.
+
+If you don't have Node, install it (free, ~30 MB, ~2 minutes):
+    1. Go to:  https://nodejs.org/
+    2. Click the big green "LTS" button.
+    3. Run the downloaded installer with default options.
+    4. Close any open terminals/command prompts so the new Node is picked up.
+
+
+─────────────────────────────────────────────────────────────────────
+STEP 3 — START THE APP
+─────────────────────────────────────────────────────────────────────
+Windows:
+    Open the patient-aac-app folder.
+    Double-click  start.bat
+    (If Windows SmartScreen warns: click "More info" → "Run anyway".)
+
+macOS / Linux:
+    Open Terminal in the patient-aac-app folder.
+    Run, only the very first time:
+        chmod +x start.sh
+    Then run:
+        ./start.sh
+
+What you'll see:
+    A console window opens. Output is prefixed:
+        [BE]  (green)  = backend
+        [FE]  (cyan)   = frontend
+    First launch installs dependencies (~2 minutes — happens only once).
+    Then your default browser opens to  http://localhost:5173
+
+That's it — the app is running. Use the browser tab as you would any
+website. Both servers keep running until you stop them.
+
+
+─────────────────────────────────────────────────────────────────────
+STEP 4 — STOP THE APP
+─────────────────────────────────────────────────────────────────────
+In the launcher console window, press  Ctrl+C
+(or just close the window).
+
+Both backend and frontend stop together. Your data is already saved
+on disk after every change, so nothing is lost.
+
+To start again later, just double-click start.bat (or run ./start.sh).
+Subsequent launches start in seconds — no install needed.
+
+
+─────────────────────────────────────────────────────────────────────
+NAVIGATING THE APP
+─────────────────────────────────────────────────────────────────────
+Six tabs run across the top of the screen:
+
+  Board       — Main patient communication screen (phrase tiles,
+                pain scale, emergency button, vital signs, and
+                summary cards for trackers / diet / medications).
+
+  Trackers    — Nurse-facing daily panel. Log and track water
+                intake, food & nutrition (meals, protein, carbs,
+                vitamins), restroom visits & urine output, and
+                sleep. Green border = target met, red = below target.
+                Set daily minimum targets for each metric.
+
+  Diet        — Weekly meal log. Record food items for Breakfast,
+                Lunch, Dinner, and Snacks. Track calories, protein,
+                carbohydrates, fat, and fiber per meal and per day.
+                Set daily calorie and macro goals.
+
+  Meds        — Medication schedule. Add medications with name,
+                form, dosage, frequency, and timings. Mark daily
+                doses as taken. Overdue doses are flagged.
+
+  History     — Full interaction log (every phrase tapped, with
+                timestamp). Filtered to the active patient.
+                Useful for shift handovers and care reviews.
+
+  Settings    — Patient profile, phrase editor, language toggle,
+                accessibility (night mode, scan mode, dwell-to-select,
+                large text, haptics), emergency settings, data tools.
+
+Switch patients anytime using the patient picker (top-right corner).
+
+
+─────────────────────────────────────────────────────────────────────
+WHERE YOUR DATA LIVES
+─────────────────────────────────────────────────────────────────────
+Backend JSON files (patients, phrases, logs):
+    project/server/data/
+        patients.json   — patient records (name, room, language, etc.)
+        actions.json    — phrase board layouts
+        layouts.json    — per-patient phrase customizations
+        logs.json       — interaction history (what was tapped, when)
+
+Browser localStorage (trackers, diet, medications, vitals):
+    Tracker data, diet log entries, medication schedules, and vital
+    sign readings are saved in the browser's local storage.
+    They persist across app restarts as long as you use the same
+    browser on the same machine.
+
+To back up backend data, copy the  project/server/data/  folder.
+To reset backend data to defaults, delete those JSON files — they
+regenerate on the next start.
+
+
+─────────────────────────────────────────────────────────────────────
+EDITING THE CODE
+─────────────────────────────────────────────────────────────────────
+Everything is editable. Open the patient-aac-app folder in any editor
+(VS Code is recommended, free at https://code.visualstudio.com/).
+
+    project/src/         — Frontend (React + Vite). Hot-reloads in
+                            the browser the instant you save.
+    project/server/      — Backend (Node + Express). Restarts
+                            automatically when you save.
+
+You don't need to stop and restart the app while editing — both
+servers reload on save.
+
+Useful files to start with:
+    project/src/App.jsx                   main view & state
+    project/src/views/BoardView.jsx       phrase grid
+    project/src/views/TrackersView.jsx    daily tracker panel
+    project/src/views/DietView.jsx        weekly diet / meal log
+    project/src/views/MedicationsView.jsx medication schedule
+    project/src/views/HistoryView.jsx     interaction log
+    project/src/views/SettingsView.jsx    settings page
+    project/src/data/defaultActions.js    starter phrase list
+    project/server/server.js              backend entry point
+    project/server/routes/                API endpoint code
+
+
+─────────────────────────────────────────────────────────────────────
+TROUBLESHOOTING
+─────────────────────────────────────────────────────────────────────
+"Port 5000 already in use" or "Port 5173 already in use"
+    Another app is using one of those ports. To use a different
+    backend port:
+        Windows:    set PORT=5050 && start.bat
+        Mac/Linux:  PORT=5050 ./start.sh
+    If you change the backend port, also create a file called
+        project/.env
+    with one line:
+        VITE_API_BASE_URL=http://localhost:5050
+
+"node is not recognized" / "command not found: node"
+    Node.js isn't installed or your terminal hasn't picked it up yet.
+    Reopen the terminal/console window after installing.
+
+"npm install failed"
+    Check your internet connection and Node version (need v20+).
+    Try again — npm sometimes hiccups on slow connections.
+
+The browser shows "Cannot connect" or a blank page
+    The frontend takes a few seconds to start the first time. Refresh.
+    If the [BE] log shows errors, scroll up to read them.
+
+The console window is full of weird characters (─, ✅, ⚠️)
+    Cosmetic only. Doesn't affect anything.
+
+Antivirus blocks start.bat
+    Right-click start.bat → Properties → tick "Unblock" → OK.
+    Or run it from a terminal:  cmd /c start.bat
+
+Tracker / diet / medication data is missing after switching browsers
+    This data lives in the browser's localStorage. If you switch to a
+    different browser (e.g. from Chrome to Edge), that data won't
+    transfer. Always use the same browser on the same machine.
+
+
+─────────────────────────────────────────────────────────────────────
+OPTIONAL — FIREBASE
+─────────────────────────────────────────────────────────────────────
+By default the app stores data in local JSON files. If you'd rather
+sync to Firebase Firestore, follow the instructions in:
+    project/server/config/firebase.js
+
+
+─────────────────────────────────────────────────────────────────────
+NEXT
+─────────────────────────────────────────────────────────────────────
+Open FEATURES.txt for a complete tour of what the app does.

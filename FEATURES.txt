@@ -1,0 +1,298 @@
+Kareway Health — Patient AAC App
+================================
+Feature Reference
+
+Bedside communication tool for patients who can't speak comfortably:
+they tap a phrase tile and the device speaks it aloud (Tamil or
+English), and every interaction is logged so the care team can review
+what was said and when.
+
+Six views switch from the top-right nav:
+  Board · Trackers · Diet · Meds · History · Settings
+
+
+─────────────────────────────────────────────────────────────────────
+THE BOARD  (the main screen)
+─────────────────────────────────────────────────────────────────────
+Phrase tiles
+    Tap a tile → the app speaks the phrase aloud and logs the tap.
+    Each tile shows an icon, Tamil text on top, English below.
+    Tile color encodes its category (red = medical, blue = comfort,
+    amber = needs, etc.).
+
+Categories filter
+    Pills above the grid: All · Medical · Comfort · Needs · Movement ·
+    Social · Emergency. Tap to narrow the grid.
+
+Search
+    Type any word — Tamil or English. Press  /  on the keyboard to
+    jump straight to the search box. Esc to clear.
+
+Pain scale
+    A 1-10 strip lets the patient report pain intensity. The spoken
+    phrase mentions the level, and the log captures it.
+
+Emergency button
+    Big red button (and a floating "Help" button on phones).
+    Speaks the emergency phrase, logs it, and shows a confirmation
+    toast that the on-call nurse is on the way.
+
+Family call panel
+    Shows the patient's care contacts and one-tap "video call" stubs
+    (the actual call integration is left for you to wire up).
+
+Suggestions strip
+    Quick tiles based on time-of-day greetings ("Good morning" etc.)
+    above the main grid.
+
+Usage today
+    Counters in the header show how many phrases were tapped today
+    and the average acknowledgment time.
+
+Board summary cards
+    Below the phrase grid, four quick-glance cards are shown:
+      • Tracker Summary   — today's water / food / restroom / sleep
+                           progress vs. goals (links to Trackers view).
+      • Diet Summary      — today's macro totals and goal bars
+                           (links to Diet view).
+      • Medication Reminders — due / overdue doses for the day
+                           with one-tap "mark taken" (links to Meds view).
+      • Vital Signs       — log and review temperature, BP, SpO₂,
+                           pulse, weight, blood glucose inline.
+
+
+─────────────────────────────────────────────────────────────────────
+SPEAKING DOCK  (appears when a tile is tapped)
+─────────────────────────────────────────────────────────────────────
+A floating panel at the bottom of the screen with the phrase, a
+"Speak" button, and a close button. Lets the patient repeat the phrase
+to a nurse who didn't hear it the first time.
+
+
+─────────────────────────────────────────────────────────────────────
+TRACKERS VIEW  (nurse-facing daily panel)
+─────────────────────────────────────────────────────────────────────
+Four tracker cards, each with quick-add / quick-subtract buttons,
+a daily target, and a colored border (green = met, red = below target):
+
+  Water intake
+      Track glasses consumed. 1 glass = 250 ml. Quick-add: +1, +2, +4
+      glasses. Resets are per-day per-patient.
+
+  Food & Nutrition
+      Separate counters for: Meals eaten, Protein (g), Carbohydrates (g),
+      Vitamin / supplement doses. All adjustable in small increments.
+
+  Restroom
+      Restroom visit count and urine output in ml (auto-converts to
+      litres).
+
+  Sleep
+      Total sleep duration in hours. Quick-add in 30-minute steps
+      up to +4 h; matching decrements.
+
+  Daily minimum targets
+      A full-width "Goals" card at the top lets nursing staff set the
+      minimum value for each metric. Values below the minimum are
+      shown with a red border and "Below target" badge. Set a goal
+      to 0 to disable tracking for that metric.
+
+  All tracker data is stored per-patient and per-day. The last 30 days
+  are kept; older data is pruned automatically.
+
+
+─────────────────────────────────────────────────────────────────────
+DIET VIEW  (weekly meal log)
+─────────────────────────────────────────────────────────────────────
+A week-at-a-glance view with day columns (Mon–Sun). Navigate back and
+forward by week. Each day expands into four meal sections:
+  Breakfast · Lunch · Dinner · Snacks
+
+Per food entry you can record:
+    Food name, portion size, calories, protein (g), carbs (g),
+    fat (g), fiber (g), and free-text notes.
+
+Macro summary
+    Running totals (calories, protein, carbs, fat, fiber) are shown
+    for each meal and for the full day.
+
+Daily goals
+    Set calorie and macro targets; progress bars show how close today's
+    intake is to the goal. Edit goals inline at the top of the view.
+
+Data is stored per-patient. Entries can be deleted individually.
+
+
+─────────────────────────────────────────────────────────────────────
+MEDICATIONS VIEW  (medication list & daily log)
+─────────────────────────────────────────────────────────────────────
+Maintain a per-patient medication schedule. Each medication record has:
+    Name · Generic name · Form (tablet / capsule / liquid / injection /
+    inhaler / patch / drops / other) · Dosage · Frequency (once daily,
+    twice daily, three times, four times, weekly, alternate days, as
+    needed) · Timings (morning / afternoon / evening / night / as
+    needed) · Take with food flag · Special instructions · Start & end
+    dates · Prescribing doctor · Color tag (for visual identification).
+
+Daily log
+    Each scheduled dose appears in the today panel with a check-box.
+    Mark doses as taken; the check persists for that calendar day.
+    Overdue doses (past scheduled time, not yet marked) are flagged.
+
+The Medication Reminder card on the Board view shows an at-a-glance
+summary of today's due and overdue doses without leaving the main
+screen.
+
+
+─────────────────────────────────────────────────────────────────────
+VITAL SIGNS  (inline panel on the Board)
+─────────────────────────────────────────────────────────────────────
+Log and review six vital sign readings directly from the Board view.
+Each reading is time-stamped. Readings outside the normal range are
+highlighted in amber (borderline) or red (critical).
+
+  Temperature   °C  — normal 36.1 – 37.5 °C
+  Blood Pressure    — systolic / diastolic mmHg  (e.g. 120/80)
+  SpO₂          %   — normal 94 – 100 %
+  Pulse         bpm — normal 60 – 100 bpm
+  Weight        kg
+  Blood glucose mmol/L or mg/dL
+
+All readings are stored per-patient per-day. Previous readings for
+the day are shown in a compact list below the entry form.
+
+
+─────────────────────────────────────────────────────────────────────
+HISTORY VIEW
+─────────────────────────────────────────────────────────────────────
+A scrollable timeline of every tap, in reverse-chronological order:
+phrase, category, timestamp, and which patient made the tap. Useful
+for shift handovers and care reviews. Filtered to the active patient
+automatically.
+
+
+─────────────────────────────────────────────────────────────────────
+SETTINGS VIEW
+─────────────────────────────────────────────────────────────────────
+Patient profile
+    Name, room, MRN, language preference, voice/speaking-rate,
+    care-team contacts.
+
+Phrase editor
+    Add, edit, delete, reorder, or reset to defaults. Each phrase
+    has: Tamil text, English text, audio text (what's actually
+    spoken), icon, category, and color. Drag-and-drop to reorder.
+
+Language
+    Toggle the entire UI between Tamil and English.
+
+Accessibility
+    - High-contrast / night mode (dark background, high contrast).
+    - Dwell-to-select (hover for X ms to activate, instead of tap).
+    - Auto-scan mode + scan interval (see below).
+    - Haptic feedback toggle (vibrates on tap).
+    - Large-text toggle.
+
+Emergency settings
+    Confirm-with-hold (require holding the emergency button for
+    Xms to prevent accidental triggers).
+
+Data tools
+    Reset phrases to defaults, export logs, etc.
+
+
+─────────────────────────────────────────────────────────────────────
+NIGHT MODE
+─────────────────────────────────────────────────────────────────────
+A sun/moon toggle button in the top-right header switches between day
+mode (light background) and night mode (dark background, reduced glare).
+Preference is saved per-device and restored on the next launch.
+
+
+─────────────────────────────────────────────────────────────────────
+SCAN MODE  (single-switch accessibility)
+─────────────────────────────────────────────────────────────────────
+For patients who can't tap precisely. The board auto-highlights
+each tile in turn (interval configurable in Settings). The patient
+selects the highlighted tile by pressing the spacebar (or any single
+switch mapped to space). A blue banner shows "X / Y" position.
+
+
+─────────────────────────────────────────────────────────────────────
+MULTI-PATIENT
+─────────────────────────────────────────────────────────────────────
+The patient picker (top-right) shows all patient profiles. Each
+patient has their own:
+    - Profile data
+    - Phrase board layout (their custom phrases / order)
+    - Interaction logs
+    - Tracker data (water, food, restroom, sleep) and goals
+    - Diet log entries and diet goals
+    - Medication list and daily dose log
+    - Vital signs readings
+
+Switching patients is instant — no reload. Add new patients via the
+"+" in the picker, or manage them all from the Patient Manager modal.
+
+
+─────────────────────────────────────────────────────────────────────
+OFFLINE / SYNC
+─────────────────────────────────────────────────────────────────────
+A small pill in the header shows backend status:
+    Live · Speaking enabled    (green)  — backend reachable, all good
+    Saving                     (amber)  — write in progress
+    Offline                    (red)    — backend not reachable
+
+When offline, the app keeps working from a localStorage cache.
+Edits are saved locally and pushed to the backend automatically
+when it comes back. Phrases, patients, and logs all survive
+restarts and disconnections.
+
+
+─────────────────────────────────────────────────────────────────────
+KEYBOARD SHORTCUTS
+─────────────────────────────────────────────────────────────────────
+    /          Focus the search box (when on the Board view)
+    Space      Select the currently-highlighted tile (in scan mode)
+    Esc        Close any open dialog or speaking dock
+    Ctrl+C     (in launcher console) Stop the app
+
+
+─────────────────────────────────────────────────────────────────────
+PICTOGRAMS  (ARASAAC)
+─────────────────────────────────────────────────────────────────────
+The phrase editor can pull images from the free ARASAAC pictogram
+library. Type a search term and pick a picture for the tile. Images
+are loaded from ARASAAC's CDN, so an internet connection is needed
+the first time you pick one (cached after that).
+
+
+─────────────────────────────────────────────────────────────────────
+DATA & PRIVACY
+─────────────────────────────────────────────────────────────────────
+Everything stays on this computer. The backend writes JSON files
+to  project/server/data/  — patients, phrases, layouts, logs. There
+is no telemetry and no cloud account by default. (See SETUP.txt for
+the optional Firebase mode if you want cloud sync.)
+
+Tracker, diet, medication, and vital signs data are stored in the
+browser's localStorage (not the JSON files), so they persist across
+restarts as long as the same browser profile is used.
+
+
+─────────────────────────────────────────────────────────────────────
+TYPICAL PATIENT WORKFLOW
+─────────────────────────────────────────────────────────────────────
+1. Nurse opens the app, picks the patient from the picker.
+2. Patient taps "I am in pain" → device speaks it, log entry created.
+3. Patient picks pain level 7 on the pain scale → "My pain is 7/10"
+   spoken and logged.
+4. Nurse logs vitals (temperature, BP, SpO₂) on the Board.
+5. Nurse logs medications taken for the day in the Meds view or via
+   the Medication Reminder card on the Board.
+6. Nurse records water intake and meals in the Trackers / Diet views.
+7. Nurse reviews History view at shift change to see the day's taps.
+8. Nurse adjusts phrases in Settings to match this patient's needs.
+
+That's the whole loop. Everything else (multi-patient, scan mode,
+high contrast / night mode, etc.) layers onto that core flow.
